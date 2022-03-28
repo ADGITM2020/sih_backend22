@@ -37,3 +37,6 @@ def show(id: int, db: Session):
                             detail=f"Student with the id {id} is not available")
     return student
 
+def show_slots(id: int, db: Session):
+    slots=db.query(models.Slot).filter(models.Slot.student_id==id)
+    return slots

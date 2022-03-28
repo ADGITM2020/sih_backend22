@@ -25,3 +25,8 @@ def create_student(request: schema.StudentRegister, db: Session = Depends(get_db
 def get_student(id: int, db: Session = Depends(get_db)):
     return student_repo.show(id, db)
 
+
+@router.get('/{id}/slots',response_model=schema.ShowSlot)
+def get_student(id: int, db: Session = Depends(get_db)):
+    return student_repo.show_slots(id, db)
+
