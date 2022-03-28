@@ -32,9 +32,9 @@ def show(id: int, db: Session):
     return institute
 
 
-# def get_all_labs(id: int, db: Session):
-#     all_labs = db.query(models.Lab).where(models.Lab.institute_id == id).all()
-#     return all_labs
+def get_all_labs(id: int, db: Session):
+    all_labs = db.query(models.Lab).where(models.Lab.institute_id == id).all()
+    return all_labs
 
 
 def get_all_students(id: int, db: Session):
