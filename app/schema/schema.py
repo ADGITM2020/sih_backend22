@@ -2,6 +2,7 @@
 from pydantic import BaseModel
 from typing import List,Optional
 
+
 class StudentRegister(BaseModel):
 
     name: str
@@ -42,6 +43,21 @@ class Experiment(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class Lab(BaseModel):
+    institute_id:int
+    lab_name:str
+    lab_address:str
+    longitude:float
+    latitude:float
+    lab_student_capacity:int
+    lab_admin_name:str
+
+    class Config:
+        orm_mode=True
+
+
 
 class ShowStudent(BaseModel):
     id: int
@@ -86,3 +102,17 @@ class ShowExperiment(BaseModel):
 
     class Config:
         orm_mode = True
+
+class ShowLab(BaseModel):
+    lab_id:int
+    lab_name:str
+    institute_id:int
+    lab_address:str
+    longitude:float
+    latitude:float
+    lab_student_capacity:int
+    lab_admin_name:str
+    experiments:List[Experiment]
+    
+    class Config:
+        orm_mode=True

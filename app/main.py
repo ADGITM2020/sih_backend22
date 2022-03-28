@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import equipment,experiment,authentication, students,institute
+from app.routes import equipment,experiment,authentication, students,institute,lab
 
 from app.config.database import Base, engine
 
@@ -21,3 +21,4 @@ app.include_router(authentication.router)
 app.include_router(institute.router)
 app.include_router(equipment.router)
 app.include_router(experiment.router)
+app.include_router(lab.router)
