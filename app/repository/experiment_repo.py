@@ -33,10 +33,10 @@ def show(id: int, db: Session):
     return experiment
 
 def show_equipments_from_experiment_id(experiment_id:int, db: Session):
-    all_equiments=db.query(models.experiment_equipments).all()
+    all_equipments=db.query(models.experiment_equipments).all()
+    experiment_id=int(experiment_id)
     equipments=[]
-    for equipment in all_equiments:
+    for equipment in all_equipments:
         if equipment.experiment_id==experiment_id:
-            equipments.append(equipment.experiment_id)
-    print(equipments)        
+            equipments.append(equipment)
     return equipments        
