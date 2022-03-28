@@ -14,14 +14,14 @@ def create(request: schema.StudentRegister, db: Session):
         password=Hash.bcrypt(request.password),
         year=request.year,
         course=request.course,
-        is_student=request.is_student
+        is_student=request.is_student,
     )
 
-    # if request.institute_id:
-    #     new_student.institute_id = request.institute_id
-    #     institute = db.query(models.Institute).filter(
-    #         models.Institute.institute_id == request.institute_id).first()
-    #     institute.students.append(new_student)
+    if request.institute_id:
+        new_student.institute_id = request.institute_id
+        institute = db.query(models.Institute).filter(
+            models.Institute.institute_id == request.institute_id).first()
+        institute.students.append(new_student)
 
     db.add(new_student)
     db.commit()
