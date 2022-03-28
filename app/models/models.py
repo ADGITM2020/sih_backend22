@@ -46,6 +46,8 @@ experiment_equipments = Table('experiment_equipments', Base.metadata,
 
 
 
+
+
 class Equipment(Base):
     __tablename__ = 'equipments'
 
@@ -60,17 +62,16 @@ class Experiment(Base):
     __tablename__ = "experiments"
 
     experiment_id = Column(Integer, primary_key=True, index=True)
-    lab_id=Column(Integer,ForeignKey("labs.lab_id"))
     aim = Column(String)
     description = Column(String)
     equipments = relationship(
         "Equipment", secondary="experiment_equipments", back_populates="experiments")
-    lab = relationship("Lab",back_populates="experiments")
+    labs = relationship("Lab", secondary="lab_experiments",back_populates="experiments")
 
-# lab_experiments = Table('lab_experiments', Base.metadata,
-#     Column('experiment_id', ForeignKey('experiments.experiment_id'), primary_key=True),
-#     Column('lab_id', ForeignKey('labs.lab_id'), primary_key=True)
-# )
+lab_experiments = Table('lab_experiments', Base.metadata,
+    Column('experiment_id', ForeignKey('experiments.experiment_id'), primary_key=True),
+    Column('lab_id', ForeignKey('labs.lab_id'), primary_key=True)
+)
 
 class Lab(Base):
     __tablename__="labs"
@@ -83,7 +84,7 @@ class Lab(Base):
     lab_student_capacity=Column(Integer)
     lab_admin_name=Column(String)
     institute_id=Column(Integer,ForeignKey("institute.institute_id"))
-    experiments=relationship("Experiment",back_populates="labs")
+    experiments=relationship("Experiment",secondary="lab_experiments",back_populates="labs")
 
     institute=relationship("Institute",back_populates="labs")
     # slots=relationship("Slot",back_populates="labs")
