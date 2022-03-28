@@ -16,7 +16,6 @@ def create(request: schema.Experiment, db: Session):
             equipment = db.query(models.Equipment).filter(
                 models.Equipment.equipment_id == equipment_id).first()
             equipment.experiments.append(new_experiment)
-            new_experiment.equipments.append(equipment)
 
     db.add(new_experiment)
     db.commit()
@@ -33,10 +32,10 @@ def show(id: int, db: Session):
     return experiment
 
 def show_equipments_from_experiment_id(experiment_id:int, db: Session):
-    all_equiments=db.query(models.experiment_equipments).all()
+    all_equipments=db.query(models.experiment_equipments).all()
+    experiment_id=int(experiment_id)
     equipments=[]
-    for equipment in all_equiments:
+    for equipment in all_equipments:
         if equipment.experiment_id==experiment_id:
-            equipments.append(equipment.experiment_id)
-    print(equipments)        
+            equipments.append(equipment.equipment_id)
     return equipments        
