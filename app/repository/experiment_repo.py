@@ -36,5 +36,6 @@ def show_equipments_from_experiment_id(experiment_id:int, db: Session):
     equipments=[]
     for equipment in all_equipments:
         if equipment.experiment_id==experiment_id:
-            equipments.append(equipment.equipment_id)
+            equipment=db.query(models.Equipment).filter(models.Equipment.equipment_id==equipment.equipment_id).first()
+            equipments.append(equipment)
     return equipments        

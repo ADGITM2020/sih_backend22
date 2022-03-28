@@ -24,6 +24,6 @@ def show_experiment(id, db: Session = Depends(get_db)):
     return experiment_repo.show(id, db)
 
 @router.get("/{experiment_id}/equipments", status_code=status.HTTP_200_OK)
-def show_equipment_from_exp_id(id, db: Session = Depends(get_db)):
-    return experiment_repo.show_equipments_from_experiment_id(id, db)
+def show_equipment_from_exp_id(experiment_id, db: Session = Depends(get_db)):
+    return experiment_repo.show_equipments_from_experiment_id(experiment_id, db)
 

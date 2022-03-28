@@ -112,7 +112,7 @@ class ShowLab(BaseModel):
     latitude:float
     lab_student_capacity:int
     lab_admin_name:str
-    experiments:List[Experiment]
+    experiments:List[ShowExperiment]
     
     class Config:
         orm_mode=True
