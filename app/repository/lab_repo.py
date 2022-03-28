@@ -9,6 +9,7 @@ def create(request: schema.Lab, db: Session):
         institute_id=request.institute_id,
         lab_admin_name=request.lab_admin_name,
         lab_name=request.lab_name,
+        lab_description=request.lab_description,
         lab_address=request.lab_address,
         longitude=request.longitude,
         latitude=request.latitude,
