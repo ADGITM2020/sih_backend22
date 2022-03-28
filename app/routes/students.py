@@ -16,7 +16,7 @@ router = APIRouter(
 get_db = database.get_db
 
 
-@router.post('/')
+@router.post('/',response_model=schema.ShowStudent)
 def create_student(request: schema.StudentRegister, db: Session = Depends(get_db)):
     return student_repo.create(request, db)
 
@@ -25,7 +25,3 @@ def create_student(request: schema.StudentRegister, db: Session = Depends(get_db
 def get_student(id: int, db: Session = Depends(get_db)):
     return student_repo.show(id, db)
 
-
-@router.put("/{id}", response_model=schema.ShowStudent)
-def update_student(id: int, request: schema.StudentRegister, db: Session = Depends(get_db)):
-    return student_repo.update(id, db)

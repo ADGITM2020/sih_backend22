@@ -14,7 +14,6 @@ def create(request: schema.StudentRegister, db: Session):
         password=Hash.bcrypt(request.password),
         year=request.year,
         course=request.course,
-        college_id=request.college_id,
         is_student=request.is_student
     )
 
@@ -38,14 +37,3 @@ def show(id: int, db: Session):
                             detail=f"Student with the id {id} is not available")
     return student
 
-
-def update(id: int, db: Session, requests: schema.ShowStudent):
-    student = db.query(models.Student).filter(
-        models.Student.id == id)
-    if not student.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Student with the id {id} is not available")
-
-    student.update(requests)
-    db.commit()
-    return Response(status_code=status.HTTP_200_OK)

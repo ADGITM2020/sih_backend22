@@ -7,10 +7,9 @@ class StudentRegister(BaseModel):
     name: str
     email: str
     password: str
-    year: str
+    year: int
     course: str
-    college_id: str
-    is_student: str
+    is_student: bool
 
 
 class ShowStudent(BaseModel):
@@ -18,11 +17,9 @@ class ShowStudent(BaseModel):
     id: int
     name: str
     email: str
-    password: str
-    year: str
+    year: int
     course: str
-    college_id: str
-    is_student: str
+    is_student: bool
 
     class Config():
         orm_mode = True
