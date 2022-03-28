@@ -27,8 +27,17 @@ def show(id: int, db: Session):
                             detail=f"Lab with the id {id} is not found")
     return slot  
 
+def updatebook(id:int,student_id:int,db:Session):
+    slot=db.query(models.Slot).filter(models.Slot.slot_id==id).first()
+    slot.student_id=student_id
+    slot.is_booked=True
+
 def show_all_slots(db:Session):
     slots=db.query(models.Slot).all()
+    return slots
+
+def get_all_slots_from_lab_id(lab_id,db:Session):
+    slots=db.query(models.Slot).filter(models.Slot.lab_id==lab_id)
     return slots
 
 def delete(id,db:Session):
