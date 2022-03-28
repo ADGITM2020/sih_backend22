@@ -38,5 +38,5 @@ def show(id: int, db: Session):
     return student
 
 def show_slots(id: int, db: Session):
-    slots=db.query(models.Slot).filter(models.Slot.student_id==id)
+    slots=db.query(models.Slot).filter(models.Slot.student_id==id).all()
     return slots

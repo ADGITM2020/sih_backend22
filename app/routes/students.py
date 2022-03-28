@@ -26,7 +26,7 @@ def get_student(id: int, db: Session = Depends(get_db)):
     return student_repo.show(id, db)
 
 
-@router.get('/{id}/slots',response_model=schema.ShowSlot)
+@router.get('/{id}/slots')
 def get_student(id: int, db: Session = Depends(get_db)):
     return student_repo.show_slots(id, db)
 
