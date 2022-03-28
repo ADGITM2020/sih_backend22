@@ -1,6 +1,9 @@
+from typing import List
 from app.config.database import Base
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Table,Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+
+from app.routes import experiment
 
 
 class Student(Base):
@@ -31,3 +34,37 @@ class Institute(Base):
 
     students = relationship("Student", back_populates="institute")
     # labs = relationship("Lab", back_populates="institute")
+
+
+
+experiment_equipments = Table('experiment_equipments', Base.metadata,
+                              Column('experiment_id', ForeignKey(
+                                  'experiments.experiment_id')),
+                              Column('equipment_id', ForeignKey(
+                                  'equipments.equipment_id'))
+                              )
+
+
+
+
+
+class Equipment(Base):
+    __tablename__ = 'equipments'
+
+    equipment_id = Column(Integer, primary_key=True, index=True)
+    equipment_name = Column(String)
+    description = Column(String)
+    experiments = relationship(
+        "Experiment", secondary="experiment_equipments", back_populates="equipments")
+
+
+class Experiment(Base):
+    __tablename__ = "experiments"
+
+    experiment_id = Column(Integer, primary_key=True, index=True)
+    aim = Column(String)
+    description = Column(String)
+    equipments = relationship(
+        "Equipment", secondary="experiment_equipments", back_populates="experiments")
+    # labs = relationship("Lab", secondary="lab_experiments",
+    #                     back_populates="experiments")

@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel
-
+from typing import List,Optional
 
 class StudentRegister(BaseModel):
 
@@ -26,6 +26,23 @@ class Institute(BaseModel):
     class Config():
         orm_mode = True
 
+class Equipment(BaseModel):
+    equipment_name: str
+    description: str
+    experiments: Optional[List[int]] = []
+
+    class Config:
+        orm_mode = True
+
+
+class Experiment(BaseModel):
+    aim: str
+    description: str
+    equipments: Optional[List[int]] = []
+
+    class Config:
+        orm_mode = True
+
 class ShowStudent(BaseModel):
     id: int
     name: str
@@ -48,4 +65,24 @@ class ShowInstitute(BaseModel):
     is_institute_resource:bool
 
     class Config():
+        orm_mode = True
+
+
+class ShowEquipment(BaseModel):
+    equipment_id:int
+    equipment_name:str
+    description:str
+    experiments:List[Experiment]=[]   
+
+    class Config:
+        orm_mode = True
+
+
+class ShowExperiment(BaseModel):
+    experiment_id:int
+    aim:str
+    description:str   
+    equipments:List[Equipment]=[]
+
+    class Config:
         orm_mode = True
