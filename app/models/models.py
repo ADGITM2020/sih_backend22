@@ -1,6 +1,6 @@
 from typing import List
 from app.config.database import Base
-from sqlalchemy import Table,Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Table,Boolean, Column, ForeignKey, Integer, String,Float
 from sqlalchemy.orm import relationship
 
 from app.routes import experiment
@@ -33,7 +33,7 @@ class Institute(Base):
     is_institute_resource = Column(Boolean)
 
     students = relationship("Student", back_populates="institute")
-    # labs = relationship("Lab", back_populates="institute")
+    labs = relationship("Lab", back_populates="institute")
 
 
 
@@ -66,5 +66,29 @@ class Experiment(Base):
     description = Column(String)
     equipments = relationship(
         "Equipment", secondary="experiment_equipments", back_populates="experiments")
-    # labs = relationship("Lab", secondary="lab_experiments",
-    #                     back_populates="experiments")
+    labs = relationship("Lab", secondary="lab_experiments",back_populates="experiments")
+
+lab_experiments = Table('lab_experiments', Base.metadata,
+    Column('experiment_id', ForeignKey('experiments.experiment_id'), primary_key=True),
+    Column('lab_id', ForeignKey('labs.lab_id'), primary_key=True)
+)
+
+class Lab(Base):
+    __tablename__="labs"
+    
+    lab_id=Column(Integer,primary_key=True,index=True)
+    lab_name=Column(String)
+    lab_address=Column(String)
+    longitude=Column(Float)
+    latitude=Column(Float) 
+    lab_student_capacity=Column(Integer)
+    lab_admin_name=Column(String)
+    institute_id=Column(Integer,ForeignKey("institute.institute_id"))
+    experiments=relationship("Experiment",secondary="lab_experiments",back_populates="labs")
+
+    institute=relationship("Institute",back_populates="labs")
+    # slots=relationship("Slot",back_populates="labs")
+    
+    
+    
+#Slot date as well

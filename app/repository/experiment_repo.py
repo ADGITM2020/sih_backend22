@@ -2,10 +2,9 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from app.schema import schema
 from app.models import models
-from app.routes import equipment
 
 
-def create(request: schema.Experiment, db: Session):
+def create(request:schema.Experiment, db: Session):
     new_experiment = models.Experiment(
         aim=request.aim,
         description=request.description,
