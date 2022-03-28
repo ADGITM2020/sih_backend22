@@ -19,7 +19,7 @@ def create_experiment(request: schema.Experiment, db: Session = Depends(get_db))
     return experiment_repo.create(request, db)
 
 @router.get("/", status_code=status.HTTP_200_OK)
-def show_all_experiment(id, db: Session = Depends(get_db)):
+def show_all_experiment(db: Session = Depends(get_db)):
     return experiment_repo.show_all(db)
 
 @router.get("/{id}", status_code=status.HTTP_200_OK)

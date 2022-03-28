@@ -1,7 +1,7 @@
 
 from pydantic import BaseModel
 from typing import List,Optional
-
+from datetime import time,date
 
 class StudentRegister(BaseModel):
 
@@ -58,7 +58,16 @@ class Lab(BaseModel):
         orm_mode=True
 
 
+class Slot(BaseModel):
+    lab_id:int
+    price:int
+    date:date
+    start_time:time        #iso format 14:23:55.003
+    end_time:time
 
+    class Config:
+        orm_mode = True
+        
 class ShowStudent(BaseModel):
     id: int
     name: str
@@ -116,3 +125,16 @@ class ShowLab(BaseModel):
     
     class Config:
         orm_mode=True
+        
+class ShowSlot(BaseModel):
+    slot_id:int
+    lab_id:int
+    student_id:int
+    price:int
+    is_booked:bool
+    date:date
+    start_time:time        #iso format 14:23:55.003
+    end_time:time
+
+    class Config:
+        orm_mode = True

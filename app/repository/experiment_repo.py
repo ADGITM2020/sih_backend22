@@ -30,7 +30,7 @@ def show(id: int, db: Session):
                             detail=f"Experiment with the id {id} is not found")
     return experiment
 
-def show_all(id: int, db: Session):
+def show_all(db: Session):
     experiments = db.query(models.Experiment).all()
     return experiments
 

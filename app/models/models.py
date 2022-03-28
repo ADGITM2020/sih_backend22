@@ -1,6 +1,7 @@
+from email.policy import default
 from typing import List
 from app.config.database import Base
-from sqlalchemy import Table,Boolean, Column, ForeignKey, Integer, String,Float
+from sqlalchemy import Table,Boolean, Column,DATE,TIME, ForeignKey, Integer, String,Float
 from sqlalchemy.orm import relationship
 
 from app.routes import experiment
@@ -19,7 +20,6 @@ class Student(Base):
     is_student = Column(Boolean)
 
     institute = relationship("Institute", back_populates="students")
-    # slots = relationship("Slot", back_populates="student")
 
 class Institute(Base):
     __tablename__ = 'institute'
@@ -87,8 +87,20 @@ class Lab(Base):
     experiments=relationship("Experiment",secondary="lab_experiments",back_populates="labs")
 
     institute=relationship("Institute",back_populates="labs")
-    # slots=relationship("Slot",back_populates="labs")
+    slots=relationship("Slot",back_populates="labs")
     
     
     
-#Slot date as well
+class Slot(Base):
+    __tablename__="slots"
+    
+    slot_id=Column(Integer,primary_key=True,index=True)
+    lab_id=Column(Integer,ForeignKey("labs.lab_id"))
+    student_id=Column(Integer,default=None)
+    is_booked=Column(Boolean,default=False)
+    price=Column(Integer)
+    date=Column(DATE)
+    start_time=Column(TIME)
+    end_time=Column(TIME)
+    
+    labs=relationship("Lab",back_populates="slots")
