@@ -37,3 +37,14 @@ def delete(id,db:Session):
     lab=db.query(models.Lab).filter(models.Lab.lab_id==id).first()
     db.delete(lab)
     db.commit()
+    
+    
+# def show_experiments_from_lab_id(lab_id:int, db: Session):
+#     all_experiments=db.query(models.lab_experiments).all()
+#     lab_id=int(lab_id)
+#     experiments=[]
+#     for experiment in all_experiments:
+#         if experiment.lab_id==lab_id:
+#             experiment_temp=db.query(models.Experiment).filter(models.Experiment.experiment_id==experiment.experiment_id).first()
+#             experiments.append(experiment_temp)
+#     return experiments        

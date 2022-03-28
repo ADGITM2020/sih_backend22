@@ -23,9 +23,9 @@ def show_institute(id, db: Session = Depends(get_db)):
     return institute_repo.show(id, db)
 
 
-# @router.get("/{id}/labs")
-# def get_all_labs(id: int, db: Session = Depends(get_db)):
-#     return institute_repo.get_all_labs(id, db)
+@router.get("/{id}/labs")
+def get_all_labs(id: int, db: Session = Depends(get_db)):
+    return institute_repo.get_all_labs(id, db)
 
 
 @router.get("/{id}/students",response_model=List[schema.ShowStudent])
