@@ -48,6 +48,7 @@ class Experiment(BaseModel):
 class Lab(BaseModel):
     institute_id:int
     lab_name:str
+    lab_description:str
     lab_address:str
     longitude:float
     latitude:float
@@ -115,6 +116,7 @@ class ShowExperiment(BaseModel):
 class ShowLab(BaseModel):
     lab_id:int
     lab_name:str
+    lab_description:str
     institute_id:int
     lab_address:str
     longitude:float

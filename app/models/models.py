@@ -79,6 +79,7 @@ class Lab(Base):
     lab_id=Column(Integer,primary_key=True,index=True)
     lab_name=Column(String)
     lab_address=Column(String)
+    lab_description=Column(String)
     longitude=Column(Float)
     latitude=Column(Float) 
     lab_student_capacity=Column(Integer)
