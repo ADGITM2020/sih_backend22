@@ -23,3 +23,18 @@ def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(
     access_token = token.create_access_token(
         data={"sub": student.email})
     return {"access_token": access_token, "token_type": "bearer", "student_id": student.id}
+
+@router.post('/login_institute')
+def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
+    institute: models.Institute = db.query(models.Institute).filter(
+        models.Institute.institute_email == request.username).first()
+    if not institute:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Invalid Credentials")
+    if not Hash.verify(institute.institute_password, request.password):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Incorrect password")
+
+    access_token = token.create_access_token(
+        data={"sub": institute.institute_email})
+    return {"access_token": access_token, "token_type": "bearer", "inst": institute.institute_id}
