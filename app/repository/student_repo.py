@@ -10,7 +10,7 @@ from app.functions.hashing import Hash
 def create(request: schema.StudentRegister, db: Session):
     new_student: models.Student = models.Student(
         name=request.name,
-        email=request.name,
+        email=request.email,
         password=Hash.bcrypt(request.password),
         year=request.year,
         course=request.course,
